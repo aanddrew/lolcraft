@@ -5,8 +5,11 @@ MainMenu::MainMenu()
 :
 picture("res/huds/Menu.png")
 {
+	//make sure our texture is loaded
 	picture.load();
+
 	//init our vertices
+	//a little bit of hard coding never hurt anyone
 	vertices = new float[3*6] 
 	{
 		1.0f, 1.0f, 0.0f,
@@ -28,19 +31,6 @@ picture("res/huds/Menu.png")
 		1.0f, 1.0f,
 		0.0f, 0.0f,
 	};
-
-	// for(int i = 0; i < 6; i++)
-	// {
-	// 	std::cout << vertices[i*3 + 0] << ", " << vertices[i*3 + 1] << ", " << vertices[i*3 + 2] << std::endl;
-	// }
-
-	// for(int i = 0; i < 6; i++)
-	// {
-	// 	std::cout << texCoords[i*2 + 0] << ", " << texCoords[i*2 + 1] << std::endl;
-	// }
-
-	std::cout << vertices << std::endl;
-	std::cout << texCoords << std::endl;
 
 	//create our objects in the graphics card
 	glGenVertexArrays(1, &vertexArrayObject);
@@ -70,14 +60,43 @@ picture("res/huds/Menu.png")
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, 0);
 	//========================================
 
+	buttons = new Button[NUM_BUTTONS];
+
+	//constructed our first button
+	buttons[START].location.x = 630;
+	buttons[START].location.y = 500;
+	buttons[START].dimensions.x = 1330-630;
+	buttons[START].dimensions.y = 610-500;
 }
 
-void MainMenu::draw()
+void MainMenu::draw(s3::Shader& shader)
 {
+	shader.bind();
 	picture.bind();
 	glBindVertexArray(0);
 	glBindVertexArray(vertexArrayObject);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
+}
+
+bool insideButton(const Button& button, int x, int y)
+{
+	return
+	 (x > button.location.x &&
+		x < button.location.x + button.dimensions.x &&
+		y > button.location.y &&
+		y < button.location.y + button.dimensions.y);
+}
+
+int MainMenu::click(int x, int y)
+{
+	//returns which button was clicked
+	for(int i = 0; i < NUM_BUTTONS; i++)
+	{
+		if (insideButton(buttons[i], x, y))
+			return i;
+	}
+
+	return -1;
 }
 
 bool MainMenu::isAlive(){return alive;}
