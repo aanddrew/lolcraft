@@ -1,0 +1,252 @@
+<html> 
+<head> 
+    <!-- Information about the page -->
+    <!--This is the comment tag-->
+    <title>Stage3 Documentation</title> 
+</head> 
+<body> 
+		<h1>Welcome to Stage3</h1>
+		<p> </p>
+		<h2>Classes:</h2>
+		
+		<!-- Camera -->
+		<p>
+			===============<b>Camera</b>==================
+			<ul>
+				<ui><b>s3::Camera::Camera()</b></ui>
+					<ul>
+						Creates an s3::Camera object.
+						<br>
+						By default it is at position (0, 0, 5)
+						<br>
+						Looking at (0, 0, -1)
+					</ul>
+				<br>
+				<ui><b>void s3::Camera::rotateUp(float dTheta)</b></ui>
+					<ul>
+						Rotates the camera up (towards the up direction of the camera) by dTheta RADIANS.
+					</ul>
+				<br>
+				<ui><b>void s3::Camera::rotateRight(float dTheta)</b></ui>
+					<ul>
+						Rotates the camera right (towards the right direction of the camera) by dTheta RADIANS.
+					</ul>
+
+				<br>
+				<ui><b>void s3::Camera::translate(const glm::vec3& translation)</b></ui>
+					<ul>
+						Moves the camera's position by the translation vector.
+					</ul>
+				<br>
+				<ui><b>void s3::Camera::setPos(glm::vec3 newPosition)</b></ui>
+					<ul>
+						Sets the camera's position to the argument
+					</ul>
+
+				<br>
+				<ui><b>glm::mat4  s3::Camera::getMatrix()</b></ui>
+					<ul>
+						Returns the glm::lookat matrix corresponding to this camera.
+					</ul>
+
+				<br>
+				<ui><b>glm::vec3 getForward()</b></ui>
+					<ul>
+						Return the unit vector which extends from the camera's position in the direction it is looking at.
+					</ul>
+				<br>
+				<ui><b>glm::vec3 getRight()</b></ui>
+					<ul>
+						Return the unit vector which extends from the camera's position to it's right.
+					</ul>
+				<br>
+				<ui><b>glm::vec3 getUp()</b></ui>
+					<ul>
+						Return the unit vector which extends from the camera's position towards the top.
+					</ul>
+				<br>
+				<ui><b>glm::vec3 getPos()</b></ui>
+					<ul>
+						Returns the camera's position in the world.
+					</ul>
+
+			</ul>
+		</p>
+
+		<!-- Mesh -->
+		<p>
+			===============<b>Mesh</b>==================
+			<ul>
+				<ui><b>s3::Mesh::Mesh(const std::string& fileName)</b></ui>
+					<ul>
+						Loads a mesh from a .obj file.
+						<br>
+						This file must contain:
+						<ul>
+							<br>
+							The vertex coordinates,
+							<br>
+							The UV coordinates
+							<br>
+							The <b> triangulated </b> faces
+						</ul>
+					</ul>
+					<br>
+				<ui><b>void s3::Mesh::load()</b></ui>
+					<ul>
+						Loads the mesh into graphics memory.
+						<br>
+						Must be called before binding or drawing.
+					</ul>
+					<br>
+				<ui><b>void s3::Mesh::bind() const</b></ui>
+					<ul>
+						Binds the mesh, must be called before <b>draw()</b> is called.
+					</ul>
+					<br>
+				<ui><b>void s3::Mesh::draw() const</b></ui>
+					<ul>
+						Calls the appropriate glDrawArraysFunction. Rendering the mesh to the screen.
+					</ul>
+					<br>
+				<ui><b>const std::vector<GLfloat>& s3::Mesh::getVertices()</b></ui>
+					<ul>
+						Returns a vector containing the vertices (unindexed) that the mesh contains.
+						<br>
+						They are stored such that every group of 9 sequential floats makes up 1 triangle.
+					</ul>
+					<br>
+				<ui><b>const std::vector<GLfloat>& s3::Mesh::getNormals()</b></ui>
+					<ul>
+						Returns a vector containing the normal vectors for each vertex.
+						<br>
+						They are stored as (x,y,z,x,y,z,...) such that every group of 3 sequential floats corresponds to 1 vertex.
+					</ul>
+					<br>
+
+
+			</ul>
+		</p>
+
+		<!-- Shader -->
+		<p>
+		===============<b>Shader</b>==================
+			<ul>
+				<ui><b>s3::Shader::Shader(const std::string& vertexFilePath, const std::string& fragmentFilePath)</b></ui>
+					<ul>
+						Creates a shader object which compiles and loads the desired vertex and fragment shader.
+					</ul>
+					<br>
+				<ui><b>void s3::Shader::bind()</b></ui>
+					<ul>
+						Binds this shader program to OpenGL. This must be called before this shader is used.
+					</ul>
+					<br>
+				<ui><b>GLuint s3::Shader::getProgramID()</b></ui>
+					<ul>
+						Returns the handle to this program inside of OpenGL.
+					</ul>
+					<br>
+				<ui><b>GLuint s3::Shader::createUniform(const std::string& name)</b></ui>
+					<ul>
+						Prepares a uniform variable to be used inside the shader program.
+					</ul>
+					<br>
+				<ui><b>GLuint s3::Shader::getUniformID(const std::string& name)</b></ui>
+					<ul>
+						Returns the uniform location of this variable in OpenGL.
+					</ul>
+					<br>
+				<ui><b>void s3::Shader::setUniform(const std::string& name, const glm::mat4& matrix)</b></ui>
+					<ul>
+						Sets the previously created uniform variable to this value.
+						<br>
+						Only supports glm::mat4's right now.
+						<br>
+						You can add your own by getting the programID and setting it yourself if you want.
+					</ul>
+					<br>
+
+			</ul>
+		</p>
+
+		<!-- Texture -->
+		<p>
+		===============<b>Texture</b>==================
+		</p>
+		<ul>
+			<ui><b>s3::Texture::Texture(const std::string& fileName)</b></ui>
+				<ul>
+					Creates a texture object from the given image file.
+					<br>
+					The file must be a .png with RGBA color space. (add an alpha channel)
+				</ul>
+				<br>
+			<ui><b>s3::Texture::Texture(std::string fileName)</b></ui>
+				<ul>
+					Creates a texture object from the given image file.
+					<br>
+					The file must be a .png with RGBA color space. (add an alpha channel)
+				</ul>
+				<br>
+			<ui><b>void s3::Texture::load()</b></ui>
+				<ul>
+					Loads the texture, must be called before it can be bound.
+				</ul>
+				<br>
+			<ui><b>void s3::Texture::bind()</b></ui>
+				<ul>
+					Binds the texture, which will make it the one used when s3::Mesh::draw() is called.
+				</ul>
+				<br>
+		</ul>
+
+		<!-- Window -->
+		<p>
+		===============<b>Window</b>==================
+		</p>
+		<ul>	
+			<ui><b>s3::Window::Window(const std::string& name, int width, int height)</b></ui>
+				<ul>
+					Creates an s3::Window object with <b>name</b> as it's title, <b>width</b> width, and <b>height</b> height.
+				</ul>
+				<br>
+			<ui><b>SDL_Window* s3::Window::getSDLWindow()</b></ui>
+				<ul>
+					Returns a pointer to the SDL_Window object associated with this window.
+				</ul>
+				<br>
+			<ui><b>void s3::Window::setBG(glm::vec3 color)</b></ui>
+				<ul>
+					Sets the background color.
+					<br>
+					Color values are RBG and between 0 and 1.
+				</ul>
+				<br>
+			<ui><b>void s3::Window::setBG(float red, float green, float blue)</b></ui>
+				<ul>
+					Sets the background color.
+					<br>
+					Color values are RBG and between 0 and 1.
+				</ul>
+				<br>
+			<ui><b>void s3::Window::setBG(float red, float green, float blue, float alpha)</b></ui>
+				<ul>
+					Sets the background color.
+					<br>
+					Color values are RBGA and between 0 and 1.
+				</ul>
+				<br>
+			<ui><b>void s3::Window::clear()</b></ui>
+				<ul>
+					Clears the window and fills it to the background color.
+				</ul>
+				<br>
+			<ui><b>void s3::Window::render()</b></ui>
+				<ul>
+					Swaps the buffers.
+				</ul>
+				<br>
+		</ul>
+</body> 
+</html> 
