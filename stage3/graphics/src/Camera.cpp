@@ -13,12 +13,19 @@ Camera::Camera()
 	forward = glm::vec3(0.0f, 0.0f, -1.0f);
 	up = glm::vec3(0.0f, 1.0f, 0.0f);
 	right = glm::cross(forward, up);
-	// std::cout << "right vector: [" << right[0] << ", " << right[1] << ", " << right[2] << "]" << std::endl;
+
+	
+	projection = glm::mat4(1.0f);
 }
 
 glm::mat4 Camera::getMatrix()
 {
-	return glm::lookAt(pos, pos + forward, up);
+	return (projection*glm::lookAt(pos, pos + forward, up));
+}
+
+void Camera::setProjection(glm::mat4 projection)
+{
+	this->projection = projection;
 }
 
 //pitch, done via local coordinates

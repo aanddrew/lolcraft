@@ -8,21 +8,10 @@
 class Block
 {
 public:
-	Block(unsigned char ID);
+	// Block();
+	// Block(unsigned char ID);
 
-	void draw(s3::Shader& shader);
-private:
-	void init();
-	//a single byte for its ID
-	unsigned char ID;
-
-	enum meshID : unsigned char
-	{
-		CUBE_ALL,
-		CUBE_FULL,
-
-		NUM_MESH_IDS,
-	};
+	static void draw(unsigned char, s3::Shader& shader);
 
 	enum texID : unsigned char
 	{
@@ -39,11 +28,17 @@ private:
 
 	static int NUM_TEX_IDS;
 
+	static void init();
+
+	static void cleanUp();
+
+private:
+	//a single byte for its ID
+	// unsigned char ID;
+
 	//our global table of textures and meshes 
 	static std::vector<s3::Texture*> blockTextures;
-	static std::vector<s3::Mesh*>	  blockMeshes;
-
-	static std::unordered_map<unsigned char, unsigned char> whichMesh;
+	static s3::Mesh* blockMesh;
 };
 
 #endif

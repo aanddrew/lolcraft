@@ -5,6 +5,8 @@ layout(location = 1) in vec2 texCoordIn;
 
 out vec2 texCoordOut;
 
+// uniform mat4 translate;
+
 uniform sampler2D ourTexture;
 
 void main(){

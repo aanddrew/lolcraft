@@ -1,5 +1,5 @@
 #the files to compile as part of project
-OBJS = main.cpp stage3/graphics/src/*.cpp stage3/graphics/stbi/*.c stage3/*.cpp hud/src/*.cpp game/src/*.cpp
+OBJS = main.cpp stage3/graphics/src/*.cpp stage3/graphics/stbi/*.c stage3/*.cpp hud/src/*.cpp game/src/*.cpp utils/src/*.cpp
 
 #the compiler we will use
 CC = g++

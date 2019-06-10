@@ -17,6 +17,8 @@ public:
 	void translate(const glm::vec3& translation);
 	void setPos(glm::vec3 newPosition);
 
+	void setProjection(glm::mat4 projection);
+
 	glm::vec3 getForward();
 	glm::vec3 getRight();
 	glm::vec3 getUp();
@@ -32,6 +34,8 @@ private:
 	glm::vec3 forward;
 	glm::vec3 right;
 	glm::vec3 up;
+
+	glm::mat4 projection;
 };
 }
 
